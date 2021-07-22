@@ -1,12 +1,18 @@
-from collections import deque
+""" 
+Web Scrapper to get pageviews data from Wikipedia's API per country
+"""
 
+
+
+from collections import deque
 import requests
 from bs4 import BeautifulSoup
 import wikipedia
 import urllib3
 import json
-def main():
 
+
+def main():
     apiList: deque = getUrls(2015, 2022)
     savePath = r'pageCountsByCountry/'
     for url in apiList:
