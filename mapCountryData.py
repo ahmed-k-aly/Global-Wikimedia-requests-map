@@ -14,13 +14,11 @@ import csv
 
 def main():
     filesList = os.listdir('pageCountsByCountry')
-    dataList: list = getDataList(filesList)
-    dates, countries = getRowsCols(dataList)
-    #write_to_csv(dates, countries, dataList)
-    new_write_to_csv(dates, countries, dataList)
+    dataList: list = mergeDataIntoOne(filesList)
+    writeToCSV(dataList)
 
 
-def new_write_to_csv(dates: list, countries: list, dataList: list):
+def writeToCSV(dataList: list):
     """ 
     This method exports the data in a CSV, but in a different format than
     the original write to csv method. The new format should be easier to
@@ -40,37 +38,7 @@ def new_write_to_csv(dates: list, countries: list, dataList: list):
                     {"Country": key, "Dates": index['date'], "Requests": index[key]})
 
 
-def write_to_csv(dates: list, countries: list, dataList: list):
-    """ 
-    Exports the data to a CSV in the format of
-            Country A,      CountryB,       etc...
-    Date1,  numRequestsA,   numRequestsB,   etc...
-    Date2,  numRequestsA,   numRequestsB,   etc...
-    etc...
-    """
-    with open('requestsPerCountry.csv', 'w', newline='') as csvfile:
-        fieldnames = ['date'] + countries
-        theWriter = csv.DictWriter(
-            csvfile, fieldnames=fieldnames, restval=np.nan)
-        theWriter.writeheader()
-        for index in dataList:
-            theWriter.writerow(index)
-
-
-def getRowsCols(dataList: list) -> list:
-    dateList = []
-    countryList = []
-    for index in dataList:
-        dateList.append(index['date'])
-        for key in index:
-            if key == 'date':
-                continue
-            if key not in countryList:
-                countryList.append(key)
-    return dateList, countryList
-
-
-def getDataList(jsonList) -> list:
+def mergeDataIntoOne(jsonList) -> list:
     """ 
     Takes a list of all the files and returns a list of the number of
     requests, the country's name, and the date. The form the data 
@@ -87,6 +55,42 @@ def getDataList(jsonList) -> list:
         oneJsonsDict: dict = getOneFilesData(data)
         allPagesList.append(oneJsonsDict)
     return allPagesList
+
+
+def write_to_csv(countries: list, dataList: list):
+    """
+    !unused 
+    Exports the data to a CSV in the format of
+            Country A,      CountryB,       etc...
+    Date1,  numRequestsA,   numRequestsB,   etc...
+    Date2,  numRequestsA,   numRequestsB,   etc...
+    etc...
+    """
+    with open('requestsPerCountry.csv', 'w', newline='') as csvfile:
+        fieldnames = ['date'] + countries
+        theWriter = csv.DictWriter(
+            csvfile, fieldnames=fieldnames, restval=np.nan)
+        theWriter.writeheader()
+        for index in dataList:
+            theWriter.writerow(index)
+
+
+def getRowsCols(dataList: list) -> list:
+    """
+    divides the dataframe into two series of a date series and a country series
+    """ 
+    dateList = []
+    countryList = []
+    for index in dataList:
+        dateList.append(index['date'])
+        for key in index:
+            if key == 'date':
+                continue
+            if key not in countryList:
+                countryList.append(key)
+    return dateList, countryList
+
+
 
 
 def getOneFilesData(json: dict) -> dict:
