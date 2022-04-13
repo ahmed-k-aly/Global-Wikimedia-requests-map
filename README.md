@@ -11,9 +11,15 @@
 ## Chropleth map
 ## Key Features:
 > The map is very interactive and labeled where by hovering over each country, you get to see its current requests and the log of that for the month you chose.
-> It also utilizes a slider that changes the current year of interest.
+> 
+> The map utilizes a slider that changes the current year of interest.
+>
+> It is also possible to highlight and zoom into different parts of the world for a focused perspective.
 ## Images:
 ### May 2015 snapshot
 ### ![May-2015](https://github.com/ahmed-k-aly/Global-Wikimedia-requests-map/blob/7be252600c6498e61ba9591c8426d370e486de6f/2015-05%20Map.png)
 ### July 2020 snapshot
 ### ![July-2020](https://github.com/ahmed-k-aly/Global-Wikimedia-requests-map/blob/7be252600c6498e61ba9591c8426d370e486de6f/2020-07%20Map.png)
+### South America and Africa focus
+### ![Highlighting](https://github.com/ahmed-k-aly/Global-Wikimedia-requests-map/blob/580b4fc7171942245c6f223a913d3194fcaa30cf/Highlighting.png)
+
