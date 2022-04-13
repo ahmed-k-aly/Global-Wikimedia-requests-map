@@ -14,6 +14,7 @@ import plotly.offline as offline
 
 
 def main():
+
     df, world = readData()
     df = cleanData(df, world)
     dataSlider = getAllDatesData(df)
@@ -23,7 +24,7 @@ def main():
                 'type': 'natural earth'}), sliders=sliders)
     fig = dict(data=dataSlider, layout=layout)
     offline.plot(fig, auto_open=True,
-                filename="enWikiRequestsPerCountry.html", validate=True)
+                filename="en_WikiRequestsPerCountry.html", validate=True)
 
 
 def getSliderSteps(dataSlider):
@@ -73,7 +74,7 @@ def getChoroplethData(df, scl) -> dict:
         zmax=10,
         showscale=True,
         type='choropleth',  # type of map-plot
-        colorscale='ylorrd',
+        colorscale='rdylgn', #algae, #rdylgn
         autocolorscale=False,
         locations=df['iso_a3'],  # the column with the state
         # the variable I want to color-code
